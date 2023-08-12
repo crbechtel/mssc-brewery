@@ -11,17 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-@RequestMapping("/api/v1/customer")
+/**
+ * Created by jt on 2019-04-21.
+ */
+
+@RequestMapping("api/v1/customer")
 @RestController
 public class CustomerController {
 
-    private final CustomerService customerService;
+    private CustomerService customerService;
 
-    public CustomerController(CustomerService customerService) { this.customerService = customerService; }
-
-    @GetMapping({"/{customerId}"})
-    public ResponseEntity<CustomerDto> getCustomer(@PathVariable("customerId") UUID customerId) {
-        return new ResponseEntity<>(customerService.getCustomerById(customerId), HttpStatus.OK);
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
+    @GetMapping("/{customerId}")
+    public ResponseEntity<CustomerDto> getCustomer(@PathVariable("customerId")  UUID customerId){
+
+        return new ResponseEntity<>(customerService.getCustomerById(customerId), HttpStatus.OK);
+    }
 }
